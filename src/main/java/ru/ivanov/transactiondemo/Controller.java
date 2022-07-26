@@ -24,9 +24,16 @@ public class Controller {
     Purchase purchase = new Purchase();
     purchase.setInfo("Булка хлеба");
 
-    Long customerId = dao.createCustomer(customer);
-    Long purchaseId = dao.createPurchase(purchase);
+    save(customer, purchase);
+  }
 
-    log.info("customerId {}, purchaseId {}", customerId, purchaseId);
+  public void save(Customer customer, Purchase purchase) {
+    dao.createCustomer(customer);
+    throwException();
+    dao.createPurchase(purchase);
+  }
+
+  private void throwException (){
+    throw new RuntimeException();
   }
 }
