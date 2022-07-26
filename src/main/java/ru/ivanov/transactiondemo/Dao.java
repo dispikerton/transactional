@@ -24,9 +24,9 @@ public class Dao {
   }
 
   public Long createPurchase(Purchase purchase) {
-    String sql = "INSERT INTO purchase (name) "
-      + "VALUES (:name) RETURNING ID";
-    SqlParameterSource parameterSource = new MapSqlParameterSource("name", purchase.getProduct());
+    String sql = "INSERT INTO purchase (info) "
+      + "VALUES (:info) RETURNING ID";
+    SqlParameterSource parameterSource = new MapSqlParameterSource("info", purchase.getInfo());
     return template.queryForObject(sql, parameterSource, Long.class);
   }
 }
