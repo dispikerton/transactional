@@ -16,20 +16,20 @@ public class Dao {
     this.template = new NamedParameterJdbcTemplate(dataSource);
   }
 
-  public Long createCustomer(Customer customer) {
+  public void createCustomer(Customer customer) {
     String sql = "INSERT INTO customer (fio, money) "
-      + "VALUES (:fio, :money) RETURNING ID";
+      + "VALUES (:fio, :money)";
     SqlParameterSource parameterSource = new MapSqlParameterSource("fio", customer.getFio())
       .addValue("money", customer.getMoney());
-    return template.queryForObject(sql, parameterSource, Long.class);
+    template.update(sql, parameterSource);
   }
 
-  public Long createPurchase(Purchase purchase) {
+  public void createPurchase(Purchase purchase) {
     String sql = "INSERT INTO purchase (info, price) "
-      + "VALUES (:info, :price) RETURNING ID";
+      + "VALUES (:info, :price)";
     SqlParameterSource parameterSource = new MapSqlParameterSource("info", purchase.getInfo())
       .addValue("price", purchase.getPrice());
-    return template.queryForObject(sql, parameterSource, Long.class);
+    template.update(sql, parameterSource);
   }
 
   public void writeOffMoney(Purchase purchase) {

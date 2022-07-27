@@ -26,10 +26,10 @@ public class Controller {
   }
 
   @GetMapping("/customer")
-  public long createCustomer() {
+  public void createCustomer() {
     Customer customer = new Customer();
     customer.setFio("Дмитрий");
     customer.setMoney(5000.50);
-    return dao.createCustomer(customer);
+    dao.createCustomer(customer);
   }
 }
