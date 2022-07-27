@@ -1,6 +1,5 @@
 package ru.ivanov.transactiondemo;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,25 +14,22 @@ public class Controller {
     this.dao = dao;
   }
 
-  @GetMapping
-  @Transactional
-  public void test() {
+  @GetMapping("/order")
+  public void makeOrder() {
+    Purchase purchase = new Purchase();
+    purchase.setInfo("Не кладите в пакеты");
+    purchase.setPrice(200.00);
+    purchase.setCustomerId(1);
+
+    dao.createPurchase(purchase);
+    dao.writeOffMoney(purchase);
+  }
+
+  @GetMapping("/customer")
+  public long createCustomer() {
     Customer customer = new Customer();
     customer.setFio("Дмитрий");
-
-    Purchase purchase = new Purchase();
-    purchase.setInfo("Булка хлеба");
-
-    save(customer, purchase);
-  }
-
-  public void save(Customer customer, Purchase purchase) {
-    dao.createCustomer(customer);
-    throwException();
-    dao.createPurchase(purchase);
-  }
-
-  private void throwException (){
-    throw new RuntimeException();
+    customer.setMoney(5000.50);
+    return dao.createCustomer(customer);
   }
 }
