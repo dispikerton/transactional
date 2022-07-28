@@ -1,5 +1,6 @@
 package ru.ivanov.transactiondemo;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,13 +17,19 @@ public class Controller {
   }
 
   @PostMapping("/order")
+  @Transactional
   public void makeOrder(@RequestBody Purchase purchase) {
     dao.createPurchase(purchase);
+    method();
     dao.writeOffMoney(purchase);
   }
 
   @PostMapping("/customer")
   public void createCustomer(@RequestBody Customer customer) {
     dao.createCustomer(customer);
+  }
+
+  private void method() {
+    throw new RuntimeException();
   }
 }
