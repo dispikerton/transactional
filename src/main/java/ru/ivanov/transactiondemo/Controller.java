@@ -1,6 +1,7 @@
 package ru.ivanov.transactiondemo;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,22 +15,14 @@ public class Controller {
     this.dao = dao;
   }
 
-  @GetMapping("/order")
-  public void makeOrder() {
-    Purchase purchase = new Purchase();
-    purchase.setInfo("Не кладите в пакеты");
-    purchase.setPrice(200.00);
-    purchase.setCustomerId(1);
-
+  @PostMapping("/order")
+  public void makeOrder(@RequestBody Purchase purchase) {
     dao.createPurchase(purchase);
     dao.writeOffMoney(purchase);
   }
 
-  @GetMapping("/customer")
-  public void createCustomer() {
-    Customer customer = new Customer();
-    customer.setFio("Дмитрий");
-    customer.setMoney(5000.50);
+  @PostMapping("/customer")
+  public void createCustomer(@RequestBody Customer customer) {
     dao.createCustomer(customer);
   }
 }

@@ -25,10 +25,10 @@ public class Dao {
   }
 
   public void createPurchase(Purchase purchase) {
-    String sql = "INSERT INTO purchase (info, price) "
-      + "VALUES (:info, :price)";
-    SqlParameterSource parameterSource = new MapSqlParameterSource("info", purchase.getInfo())
-      .addValue("price", purchase.getPrice());
+    String sql = "INSERT INTO purchase (customer_id, price) "
+      + "VALUES (:customerId, :price)";
+    SqlParameterSource parameterSource = new MapSqlParameterSource("price", purchase.getPrice())
+      .addValue("customerId", purchase.getCustomerId());
     template.update(sql, parameterSource);
   }
 

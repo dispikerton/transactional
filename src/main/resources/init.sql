@@ -5,7 +5,8 @@ CREATE TABLE customer (
 );
 
 CREATE TABLE purchase (
-    id    BIGSERIAL PRIMARY KEY,
-    info  TEXT    NOT NULL,
-    price numeric NOT NULL
+    id          BIGSERIAL PRIMARY KEY,
+    customer_id BIGINT  NOT NULL,
+    price       numeric NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE CASCADE
 );
