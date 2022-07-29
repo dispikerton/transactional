@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,7 +30,13 @@ public class Controller {
     dao.createCustomer(customer);
   }
 
+
+  @SneakyThrows
   private void method() {
-    throw new RuntimeException();
+    Thread.sleep(60000000);
   }
+
+  // private void method() {
+  //   throw new RuntimeException();
+  // }
 }
